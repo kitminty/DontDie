@@ -1,0 +1,2 @@
+# DontDie
+Mod that if you someone dies it will spawn a random npc on a random player
