@@ -1,0 +1,3 @@
+displayName = Dont Die
+author = kitminty
+version = 0.1
