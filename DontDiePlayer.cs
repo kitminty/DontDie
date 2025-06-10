@@ -12,22 +12,20 @@ public class DontDiePlayer : ModPlayer
     {
         Random rnd = new Random();
         int randomPlayer = rnd.Next(0, Main.CurrentFrameFlags.ActivePlayersCount);
-        int randomNpc = rnd.Next(-65, 687);
-        // figure out how to exclude entries
         float x = Main.PlayerList[randomPlayer].Player.position.X;
         float y = Main.PlayerList[randomPlayer].Player.position.Y;
         
-        Main.NewText(Main.PlayerList[randomPlayer].Name);
+        Main.NewText(Main.PlayerList[randomPlayer].Name+" was cursed");
         
         if (Main.netMode == NetmodeID.SinglePlayer)
         {
-            NPC.NewNPC(NPC.GetSource_None(), (int)x, (int)y, randomNpc);
+            NPC.NewNPC(NPC.GetSource_None(), (int)x, (int)y, DontDie.RandomNpc());
         } 
         else if (Main.netMode == NetmodeID.MultiplayerClient)
         {
             ModPacket packet = ModContent.GetInstance<DontDie>().GetPacket();
             packet.Write((byte)MessageType.SpawnNpc);
-            packet.Write(randomNpc);
+            packet.Write(DontDie.RandomNpc());
             packet.Write((int)x);
             packet.Write((int)y);
             packet.Send();
