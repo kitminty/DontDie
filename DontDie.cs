@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Terraria;
@@ -28,15 +29,19 @@ public class DontDie : Mod
 		
 		return randomPlayer;
 	}
-	//211
+
 	public static int RandomNpc()
 	{
 		Random rnd = new Random();
-		//int randomNpc = rnd.Next(-65, NPCLoader.NPCCount);
-		int randomNpc = rnd.Next(104, 106);
+		List<int> excludedNpcs = new List<int>() 
+		{
+			//Town NPC's
+			22, 17, 18, 227, 207, 633, 588, 589, 208, 369, 376, 353, 354, 38, 20, 550, 579, 19, 107, 105, 228, 54, 124, 123, 441, 229, 160, 108, 106, 178, 142, 663, 368, 37, 453
+		};
+		int randomNpc = rnd.Next(-65, NPCLoader.NPCCount+1);
 		
-		//if random npc is bigger check modded npc and not check if can do face emotes
-		if (randomNpc >= NPCID.Count ? NPCLoader.GetNPC(randomNpc).NPC.townNPC : NPCID.Sets.FaceEmote[randomNpc] > 0)
+		//if random npc is bigger than vanilla npc count check modded npc type and not check non modded npc type
+		if (excludedNpcs.Contains(randomNpc) || (randomNpc >= NPCID.Count ? NPCLoader.GetNPC(randomNpc).NPC.townNPC : false))
 		{
 			Main.NewText("Rolled excluded npc, Rerolling");
 			return RandomNpc();

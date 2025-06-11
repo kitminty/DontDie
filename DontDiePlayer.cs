@@ -14,7 +14,7 @@ public class DontDiePlayer : ModPlayer
         float x = Main.PlayerList[randplayer].Player.position.X;
         float y = Main.PlayerList[randplayer].Player.position.Y;
         
-        Main.NewText(Main.PlayerList[randplayer].Name+" was cursed by " + randnpc + NPC.GetFullnameByID(randnpc));
+        Main.NewText(Main.PlayerList[randplayer].Name+" was cursed by " + NPC.GetFullnameByID(randnpc) + " Debug:ID:" + randnpc);
         
         if (Main.netMode == NetmodeID.SinglePlayer)
         {
