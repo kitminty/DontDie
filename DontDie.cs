@@ -20,16 +20,25 @@ public class DontDie : Mod
 			NPC.NewNPC(NPC.GetSource_None(), x, y, npcType);
 		}
 	}
-
+	
+	public static int RandomPlayer() 
+	{
+		Random rnd = new Random();
+		int randomPlayer = rnd.Next(0, Main.CurrentFrameFlags.ActivePlayersCount);
+		
+		return randomPlayer;
+	}
+	//211
 	public static int RandomNpc()
 	{
 		Random rnd = new Random();
-		int randomNpc = rnd.Next(-65, 687);
+		//int randomNpc = rnd.Next(-65, NPCLoader.NPCCount);
+		int randomNpc = rnd.Next(104, 106);
 		
-		//if NPC can do emotes then rerun random
-		if (NPCID.Sets.FaceEmote[randomNpc] > 0)
+		//if random npc is bigger check modded npc and not check if can do face emotes
+		if (randomNpc >= NPCID.Count ? NPCLoader.GetNPC(randomNpc).NPC.townNPC : NPCID.Sets.FaceEmote[randomNpc] > 0)
 		{
-			Main.NewText("dundun");
+			Main.NewText("Rolled excluded npc, Rerolling");
 			return RandomNpc();
 		}
 		
